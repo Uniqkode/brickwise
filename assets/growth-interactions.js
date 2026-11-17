@@ -37,16 +37,19 @@ import * as planning from './planning-math.js';
   const get=name=>$('[data-tool-input="'+name+'"]',root)?.value;
   const set=(label,value,note,review=false)=>{$('[data-tool-label]',root).textContent=label;$('[data-tool-value]',root).textContent=value;$('[data-tool-note]',root).textContent=note;root.classList.toggle('needs-review',review);};
   if(kind==='survey'||kind==='maintenance'){
+   let selectedId=null;
    const draw=()=>{
     const state=$('[data-tool-filter]',root).value;
-    const records=b.records.filter(r=>!state||r[5]===state);
+    const query=$('[data-tool-search]',root)?.value.trim().toLowerCase()||'';
+    const records=b.records.filter(r=>(!state||r[5]===state)&&(!query||[r[0],r[1],r[2],r[6]].some(value=>String(value).toLowerCase().includes(query))));
+    if(!records.some(r=>r[0]===selectedId))selectedId=records[0]?.[0]||null;
     const count=$('[data-tool-count]',root);if(count)count.textContent=`Showing ${records.length} of ${b.records.length} sample findings`;
-    $('[data-tool-records]',root).innerHTML=records.map((r,i)=>`<button type="button" data-tool-record="${safe(r[0])}" aria-pressed="${i===0}"><span>${safe(r[0])}</span><strong>${safe(r[1])}</strong><small>${safe(r[5])}</small></button>`).join('');
-    const inspect=id=>{const record=records.find(r=>r[0]===id);if(!record)return;$$('[data-tool-record]',root).forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.toolRecord===id)));$('[data-tool-detail]',root).innerHTML=`<strong>${safe(record[1])}</strong><p>${safe(record[7])}</p><span>Assigned in the supplied record: ${safe(record[6])}</span>`;};
+    $('[data-tool-records]',root).innerHTML=records.length?records.map(r=>`<button type="button" data-tool-record="${safe(r[0])}" data-state="${safe(r[5])}" aria-pressed="${r[0]===selectedId}"><span>${safe(r[0])}</span><strong>${safe(r[1])}</strong><small>${safe(r[5])}</small></button>`).join(''):'<div class="bw-tool-empty"><strong>No matching findings.</strong><p>Try a different asset, location, or review state.</p></div>';
+    const inspect=id=>{const record=records.find(r=>r[0]===id);if(!record)return;selectedId=id;$$('[data-tool-record]',root).forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.toolRecord===id)));$('[data-tool-detail]',root).innerHTML=`<strong>${safe(record[1])}</strong><p>${safe(record[7])}</p><span>Assigned in the supplied record: ${safe(record[6])}</span>`;};
     $$('[data-tool-record]',root).forEach(n=>n.addEventListener('click',()=>inspect(n.dataset.toolRecord)));
-    if(records[0])inspect(records[0][0]);else $('[data-tool-detail]',root).textContent='No supplied records match this review state.';
+    if(selectedId)inspect(selectedId);else $('[data-tool-detail]',root).innerHTML='<strong>No finding selected</strong><p>Change the search or review state to see the source note.</p>';
    };
-   $('[data-tool-filter]',root).addEventListener('change',draw);draw();return;
+   $('[data-tool-filter]',root).addEventListener('change',draw);$('[data-tool-search]',root)?.addEventListener('input',draw);draw();return;
   }
   const update=()=>{
    try{

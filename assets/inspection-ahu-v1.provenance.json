@@ -1,0 +1,9 @@
+{
+  "asset": "assets/inspection-ahu-v1.jpg",
+  "purpose": "Illustrative sample image for the prepared Marina House AHU 03 review. It is not a photograph of a real customer site or original inspection evidence.",
+  "generator": "OpenAI built-in image_gen tool",
+  "mode": "built-in generation",
+  "created": "2026-11-17",
+  "prompt": "Use case: photorealistic-natural. Asset type: a clearly illustrative sample inspection photograph inside a building maintenance software evidence viewer. Create one wide landscape photograph, approximately 3:2 composition, of the bottom corner of a commercial air handling unit in a clean but utilitarian mechanical plant room. Main subject: matte galvanized gray AHU housing, a white PVC condensate drain pipe and elbow near the lower middle-right, a small aged brown water stain beneath the drain connection on the concrete wall and floor. Equipment feels practical, real, slightly worn, with detailed metal panels, screws and pipe fittings; no extreme damage. Camera at technician standing height, close enough to inspect the connection; pipe elbow and staining around 60 percent from left and 65 percent from top. Soft natural industrial lighting, restrained cool gray palette with faint sage accents, readable detail and editorial photography quality. No people, no typography, no labels or branding, no UI, no bounding boxes, no arrows, no watermarks. This is an illustrative prepared demo, not documentary evidence of a real site.",
+  "export": "JPEG encoding for the website; visual content is unchanged."
+}

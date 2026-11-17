@@ -1,11 +1,12 @@
 {
   "name": "brickwise",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "python3 -m http.server 8080 --bind 127.0.0.1",
-    "api": "node service/ai-service.mjs"
+    "api": "node service/ai-service.mjs",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=20"

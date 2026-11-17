@@ -185,3 +185,44 @@ body.brickwise-redesign{--accent:#c6dfb1;--ink:#203e33;--paper:#f9faf6;--dark:#1
 @media(max-width:370px){.bw-hero h1{font-size:39px}.bw-hero-actions{gap:17px}.bw-watch{font-size:9px}.bw-hero .button{font-size:10px;padding-inline:13px;gap:12px}.bw-hero-visual{height:340px}.bw-audience>div{font-size:9px;gap:7px}.bw-audience svg{width:22px;height:22px}.bw-board-title{gap:9px}.bw-board-title h3{font-size:16px}.bw-record-tool{padding-inline:11px}.bw-table-head,.bw-record-tool .g-tool-records button{grid-template-columns:47px 1fr 79px;gap:7px}.bw-record-tool .g-tool-records button>strong{font-size:9px}.bw-cta h2{font-size:33px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.brickwise-redesign *{transition:none!important;animation:none!important}}
 @media print{.bw-header,.bw-footer,.bw-cta,.bw-hero-actions{display:none}.bw-section,.bw-overview{padding-block:25px}.bw-workspace,.bw-insight-card{box-shadow:none}}
+
+/* Motion explains the first visit and confirms actions; evidence stays still. */
+body.brickwise-redesign{--ease-out:cubic-bezier(.23,1,.32,1);}
+.bw-home .bw-hero-copy{animation:bw-enter 600ms var(--ease-out) both}
+.bw-home .bw-hero-visual{animation:bw-enter 700ms var(--ease-out) 80ms both}
+.bw-home .bw-insight-card{animation:bw-card-enter 650ms var(--ease-out) 200ms both}
+.bw-reveal{opacity:0;transform:translateY(16px);transition:opacity 500ms var(--ease-out),transform 500ms var(--ease-out)}
+.bw-reveal.is-visible{opacity:1;transform:none}
+.bw-insight-numbers>button{display:block;text-align:left;color:inherit;background:transparent;border:0;padding:3px 0;border-radius:5px;transition:background 160ms ease;cursor:pointer}
+.bw-insight-numbers>button span::after{content:' ↗';opacity:0;transition:opacity 160ms ease}
+.bw-insight-numbers>button:focus-visible span::after{opacity:1}
+.bw-feature-link{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:600;margin-top:17px;padding-block:5px;color:#557744}
+.bw-feature-link svg{width:13px;height:13px;transition:transform 160ms var(--ease-out)}
+.bw-feature-link:hover{text-decoration:underline;text-underline-offset:4px}
+.bw-record-search{display:flex;align-items:center;gap:8px;margin-bottom:17px;max-width:365px;padding:8px 11px;border:1px solid #dce4d5;background:#fff;border-radius:6px;color:#6a7a5d}
+.bw-record-search svg{width:15px;height:15px;flex-shrink:0}
+.brickwise-redesign .bw-record-search input{min-width:0;width:100%;padding:0;border:0;border-radius:0;background:transparent;font-size:11px;min-height:25px;color:var(--ink);outline-offset:7px}
+.bw-record-search input::placeholder{color:#718164}
+.bw-tool-empty{padding:28px 16px;color:#65765a;font-size:12px;text-align:center}
+.bw-tool-empty strong{display:block;font-size:15px;color:var(--ink);margin-bottom:6px}
+.bw-tool-empty p{margin:0}
+.bw-record-tool .g-tool-records button{transition:background 160ms ease}
+.bw-desk.is-queued .desk-queue{animation:bw-success 200ms var(--ease-out)}
+@keyframes bw-enter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+@keyframes bw-card-enter{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes bw-success{from{transform:scale(.97)}to{transform:none}}
+@media(hover:hover) and (pointer:fine){.bw-insight-numbers>button:hover{background:#f2f6e9}.bw-insight-numbers>button:hover span::after{opacity:1}.bw-feature-link:hover svg{transform:translateX(3px)}.brickwise-redesign .button:hover>svg:last-child{transform:translateX(2px)}.bw-desk .desk-photo-pin:hover>span:first-child{transform:scale(1.08)}}
+.brickwise-redesign .button>svg,.bw-desk .desk-photo-pin>span:first-child{transition:transform 160ms var(--ease-out)}
+.brickwise-redesign .button:active,.bw-desk .desk-icon-button:active{transform:scale(.98);transition:transform 100ms var(--ease-out)}
+html[data-input=keyboard] .bw-desk *,html[data-input=keyboard] .bw-feature-link svg{animation:none!important;transition:none!important}
+@media(max-width:680px){.bw-feature-link{grid-column:2;margin-top:10px;font-size:11px}.bw-record-search{max-width:none}.brickwise-redesign .bw-record-search input{font-size:12px;min-height:28px}}
+@media(prefers-reduced-motion:reduce){.bw-home .bw-hero-copy,.bw-home .bw-hero-visual,.bw-home .bw-insight-card{animation:bw-fade 150ms ease both}.bw-reveal{opacity:1;transform:none;transition:none}.brickwise-redesign .button:active{transform:none}@keyframes bw-fade{from{opacity:.5}to{opacity:1}}}
+@media print{.bw-reveal{opacity:1;transform:none}.bw-hero-copy,.bw-hero-visual,.bw-insight-card{animation:none}}
+
+.bw-record-tool .g-tool-records button[data-state="Needs review"]>small{background:#f8f1e1;color:#8a6b31}
+.bw-record-tool .g-tool-records button[data-state="Scheduled"]>small{background:#edf1f4;color:#597084}
+.bw-record-tool .g-tool-records button[data-state="Resolved"]>small{background:#eaf1e3;color:#547740}
+html[data-input=keyboard] .button:active,html[data-input=keyboard] .desk-icon-button:active{transform:none}
+@media(prefers-reduced-motion:reduce){.bw-home .bw-hero-copy,.bw-home .bw-hero-visual,.bw-home .bw-insight-card{animation:bw-fade 200ms ease both!important}.bw-reveal{transform:none;opacity:1;transition:none}}
+@keyframes bw-fade{from{opacity:0}to{opacity:1}}
+@media print{.bw-reveal{opacity:1;transform:none}.bw-feature-link{display:none}}

@@ -21,13 +21,13 @@ Typography: Manrope with Georgia italic accents. Forest green, warm ivory, and s
 
 Logo: Offset masonry units build a B with an open service passage through the center.
 
-The standalone site contains 24 routed pages (including home/technology aliases) plus its 404 page. Problem, solution, market and combined legal pages join the team, contact, roadmap and policy pages. Three industry photographs are included locally. Source, author, license and modification details are in `assets/image-sources.json`, `assets/editorial-sources.json` and Terms & credits. Font licenses are in `assets/FONT-LICENSES.txt`.
+The standalone site contains 24 routed pages (including home/technology aliases) plus its 404 page. Problem, solution, market and combined legal pages join the team, contact, roadmap and policy pages. Three industry photographs and one AI-generated sample inspection image are included locally. The sample image is labelled as illustrative; its prompt and provenance are in `assets/inspection-ahu-v1.provenance.json`. Source, author, license and modification details are in `assets/image-sources.json`, `assets/editorial-sources.json` and Terms & credits. Font licenses are in `assets/FONT-LICENSES.txt`.
 
 ## Try the workspace
 
 Run `npm run dev` (Node and Python 3), then open http://127.0.0.1:8080/. Alternatively, serve this folder with any static HTTP server. No dependency installation or build step is needed. Use `demo@brickwise.example` and `MVPdemo2026!`, or the one-click sample workspace. This is public demo access, not production authentication.
 
-Choose a prepared case, run the review, open a citation, retain the report for human review and download it. Operational records support creation, notes, status changes, search, filters, sorting and CSV export. Prepared runs make no model request.
+Choose a prepared case in the review desk, open its source tabs or image annotation, check each finding, add a reviewer note, and queue or download the brief. Case switching preserves checks and notes during the session. Queued reports remain in browser storage and appear in the workspace’s Reports view. Operational records support creation, notes, status changes, search, filters, sorting and CSV export. Prepared runs make no model request.
 
 ## GitHub Pages hosting
 
@@ -72,9 +72,13 @@ Prepared operational cases use sample data. Browser-local edits and reports are 
 
 ## Interactive product tools
 
-Focus the maintenance board. Filter the supplied inspection records by review state. Open an item to inspect its source note before using the full workspace.
+The hero’s status counts filter and open the sample inspection register. Search the register by asset, building, reference, or owner, then select a finding to inspect its note. Feature links open the relevant evidence in the review desk.
 
-The value planner compares your own review-time assumptions and exports the plan. Buyer tabs explain the segments, the solution tour steps through the workflow, and infrastructure tabs explain each service’s job. The homepage also includes a product-specific Why now, outcome measures, market strategy, software progress and three commercial plan tiers.
+The review desk includes two prepared cases, source tabs with arrow-key navigation, an illustrative image with a clickable annotation and zoom, source-linked findings, evidence checks, reviewer notes, a progress bar, queuing, and Markdown exports. Every cited source must be opened and checked before a brief can be queued for human review. Downloads include the actual checks, source references, note, and draft or queued status. A fresh check keeps the reviewer note.
+
+Homepage entrances and section reveals use opacity and transforms, run once per section, and honor reduced motion. Keyboard controls respond immediately.
+
+Run `npm test` for review-state, export, and saved-report compatibility checks. No external dependencies are required.
 
 ## Independent AI service and deployment
 
