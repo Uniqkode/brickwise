@@ -29,6 +29,12 @@ Run `npm run dev` (Node and Python 3), then open http://127.0.0.1:8080/. Alterna
 
 Choose a prepared case, run the review, open a citation, retain the report for human review and download it. Operational records support creation, notes, status changes, search, filters, sorting and CSV export. Prepared runs make no model request.
 
+## GitHub Pages hosting
+
+Website: [uniqkode.github.io/brickwise](https://uniqkode.github.io/brickwise/).
+
+GitHub Pages publishes the repository root from `main`. Push changes to `main` to update the website. The `.nojekyll` file keeps this buildless static site intact. The optional AI service runs separately; see `deployment/README.md`.
+
 ## Azure architecture
 
 - [Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview): Keep inspection and follow-up images under a stable building and asset reference. **Planned integration.**
