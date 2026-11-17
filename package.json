@@ -1,0 +1,13 @@
+{
+  "name": "brickwise",
+  "version": "5.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 8080 --bind 127.0.0.1",
+    "api": "node service/ai-service.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
