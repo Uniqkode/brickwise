@@ -41,3 +41,11 @@ The homepage’s company/leadership and pricing sections, contact details, reque
 - Push changes to `main` to publish through GitHub Pages.
 
 The product tour remains clearly identified as a walkthrough. It does not authenticate customer accounts. Node analysis-service configuration remains in `service/` and `deployment/`; provider credentials belong on the server.
+
+## Website content and workload architecture
+
+The owner supplied Master prompt.docx as a content brief and asked to preserve the current UI. Its example customer counts, throughput, uptime, prices, founder biographies and appointment URLs are not confirmed Brickwise facts. The owner requested Azure services suited to the idea as the architecture to build toward.
+
+The homepage links to the AI workload; Technology covers image/document inputs, structured findings, batch boundaries, confirmed plan allowances, Azure service roles and source documentation. Product capabilities, security controls and the build roadmap use existing site components. Stylesheets, scripts, artwork and approved business/pricing/contact values are unchanged.
+
+Keep the wider Azure stack identified as the build architecture until the deployed services are verified. Publish usage only after supplying a measured count, reporting date and source in `company-profile.json`. Current plan allowances describe included images, not completed processing volume.
