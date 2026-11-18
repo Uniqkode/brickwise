@@ -6,7 +6,7 @@ import * as planning from './planning-math.js';
  const $=(q,root=document)=>root.querySelector(q);
  const $$=(q,root=document)=>[...root.querySelectorAll(q)];
  const fmt=(v,d=1)=>Number(v).toLocaleString('en-NG',{maximumFractionDigits:d});
- const cash=v=>'₦'+fmt(Math.round(v),0);
+ const cash=v=>'US$'+fmt(Math.round(v),0);
  const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const calendar=s=>new Date(s+'T00:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
  function download(content,name){const blob=new Blob([content],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=name;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
@@ -28,7 +28,7 @@ import * as planning from './planning-math.js';
    }catch(error){result=null;for(const selector of ['[data-value-hours]','[data-value-current]','[data-value-planned]','[data-value-cost]'])$(selector,root).textContent='—';$$('[data-value-bar]',root).forEach(n=>n.style.width='0%');$('[data-value-error]',root).textContent=error.message;$('[data-value-export]',root).disabled=true;}
   };
   $$('[data-value]',root).forEach(n=>n.addEventListener('input',update));
-  $('[data-value-export]',root).addEventListener('click',()=>{if(!result)return;download(`${b.name.toUpperCase()} — REVIEW VALUE PLAN\n\nPlanning assumptions, not measured product or customer results.\n\nMonthly ${b.growth.value.unit}: ${result.volume}\nCurrent minutes per review: ${result.before}\nPlanned minutes per review: ${result.after}\nReviewer cost per hour (NGN): ${result.hourly}\n\nCurrent hours: ${fmt(result.currentHours)}\nPlanned hours: ${fmt(result.plannedHours)}\nTime difference (hours): ${fmt(result.hours)}\nTime value difference (NGN): ${fmt(result.cost)}\n\nActual outcomes need measurement in the workflow.\n`,b.slug+'-review-value-plan.txt');});
+  $('[data-value-export]',root).addEventListener('click',()=>{if(!result)return;download(`${b.name.toUpperCase()} — REVIEW VALUE PLAN\n\nPlanning assumptions, not measured product or customer results.\n\nMonthly ${b.growth.value.unit}: ${result.volume}\nCurrent minutes per review: ${result.before}\nPlanned minutes per review: ${result.after}\nReviewer cost per hour (USD): ${result.hourly}\n\nCurrent hours: ${fmt(result.currentHours)}\nPlanned hours: ${fmt(result.plannedHours)}\nTime difference (hours): ${fmt(result.hours)}\nTime value difference (USD): ${fmt(result.cost)}\n\nActual outcomes need measurement in the workflow.\n`,b.slug+'-review-value-plan.txt');});
   update();
  });
 
@@ -43,9 +43,9 @@ import * as planning from './planning-math.js';
     const query=$('[data-tool-search]',root)?.value.trim().toLowerCase()||'';
     const records=b.records.filter(r=>(!state||r[5]===state)&&(!query||[r[0],r[1],r[2],r[6]].some(value=>String(value).toLowerCase().includes(query))));
     if(!records.some(r=>r[0]===selectedId))selectedId=records[0]?.[0]||null;
-    const count=$('[data-tool-count]',root);if(count)count.textContent=`Showing ${records.length} of ${b.records.length} sample findings`;
+    const count=$('[data-tool-count]',root);if(count)count.textContent=`Showing ${records.length} of ${b.records.length} findings`;
     $('[data-tool-records]',root).innerHTML=records.length?records.map(r=>`<button type="button" data-tool-record="${safe(r[0])}" data-state="${safe(r[5])}" aria-pressed="${r[0]===selectedId}"><span>${safe(r[0])}</span><strong>${safe(r[1])}</strong><small>${safe(r[5])}</small></button>`).join(''):'<div class="bw-tool-empty"><strong>No matching findings.</strong><p>Try a different asset, location, or review state.</p></div>';
-    const inspect=id=>{const record=records.find(r=>r[0]===id);if(!record)return;selectedId=id;$$('[data-tool-record]',root).forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.toolRecord===id)));$('[data-tool-detail]',root).innerHTML=`<strong>${safe(record[1])}</strong><p>${safe(record[7])}</p><span>Assigned in the supplied record: ${safe(record[6])}</span>`;};
+    const inspect=id=>{const record=records.find(r=>r[0]===id);if(!record)return;selectedId=id;$$('[data-tool-record]',root).forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.toolRecord===id)));$('[data-tool-detail]',root).innerHTML=`<strong>${safe(record[1])}</strong><p>${safe(record[7])}</p><span>Assigned to: ${safe(record[6])}</span>`;};
     $$('[data-tool-record]',root).forEach(n=>n.addEventListener('click',()=>inspect(n.dataset.toolRecord)));
     if(selectedId)inspect(selectedId);else $('[data-tool-detail]',root).innerHTML='<strong>No finding selected</strong><p>Change the search or review state to see the source note.</p>';
    };

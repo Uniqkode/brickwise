@@ -1,0 +1,100 @@
+{
+  "brandName": "Brickwise",
+  "legalName": "Brickwise Ltd.",
+  "rcNumber": null,
+  "contactEmail": "hello@brickwise.site",
+  "phone": "+2349155500421",
+  "whatsapp": null,
+  "officeAddress": "31 Admiral Way, Lagos State",
+  "operatingHours": null,
+  "domain": "brickwise.site",
+  "bookingUrl": null,
+  "workspaceUrl": null,
+  "signupUrl": null,
+  "companyDescription": "Brickwise helps facilities teams turn inspection evidence into clear findings, reviewed work orders and consistent follow-through.",
+  "team": [
+    {
+      "name": "Arinze Precious",
+      "role": "CEO",
+      "bio": null,
+      "profileUrl": null,
+      "portrait": "assets/maintainer-avatar.jpg"
+    },
+    {
+      "name": "Kwame Azo",
+      "role": "CTO",
+      "bio": null,
+      "profileUrl": null,
+      "portrait": null
+    }
+  ],
+  "pricing": {
+    "currency": "USD",
+    "taxNote": "Prices are in USD. Taxes are additional where applicable. Extra usage is quoted individually. Annual billing is 20% less than the equivalent monthly total.",
+    "plans": [
+      {
+        "id": "team",
+        "name": "Team",
+        "monthlyPrice": 49,
+        "annualPrice": 470.4,
+        "billingUnit": "facilities team",
+        "buildings": null,
+        "imagesPerMonth": 12000,
+        "users": 15,
+        "overage": "Extra usage quoted individually",
+        "features": [
+          "Source-linked review workspace",
+          "Reviewed reports and register exports",
+          "Defined processing allowance"
+        ]
+      },
+      {
+        "id": "portfolio",
+        "name": "Portfolio",
+        "monthlyPrice": 499,
+        "annualPrice": 4790.4,
+        "billingUnit": "facilities team",
+        "buildings": null,
+        "imagesPerMonth": 36000,
+        "users": 15,
+        "overage": "Extra usage quoted individually",
+        "features": [
+          "Source-linked review workspace",
+          "Reviewed reports and register exports",
+          "Multi-building review coordination"
+        ]
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "monthlyPrice": null,
+        "annualPrice": null,
+        "priceLabel": "Custom",
+        "billingUnit": null,
+        "buildings": null,
+        "imagesPerMonth": null,
+        "users": null,
+        "overage": null,
+        "features": [
+          "Source integration, access and volume planning",
+          "Source-linked review workspace",
+          "Organization-specific integration planning"
+        ]
+      }
+    ]
+  },
+  "usage": {
+    "activeOrganizations": null,
+    "buildings": null,
+    "processedCount": null,
+    "processedUnit": null,
+    "reportingDate": null,
+    "source": null
+  },
+  "testimonials": [],
+  "customerLogos": [],
+  "availableFeatures": [],
+  "inspectionCases": [],
+  "emailEnabled": false,
+  "domainReady": false
+}

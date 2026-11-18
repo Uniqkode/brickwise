@@ -1,4 +1,4 @@
-import {createReview, reviewProgress, reportToMarkdown} from './review-state.js?v=6.2';
+import {createReview, reviewProgress, reportToMarkdown} from './review-state.js?v=7.2';
 
 /* Prepared reviews stay local. Only the connected-service action sends input. */
 const brand = window.BRAND;
@@ -31,7 +31,7 @@ if (brand?.ai) {
     const target = $('[data-ai-history]');
     if (!target) return;
     const rows = readHistory();
-    target.innerHTML = rows.length ? rows.map((row, index) => `<article class="ai-history-item"><div><h3>${esc(row.title)}</h3><p>${row.mode === 'live' ? 'Connected AI' : 'Prepared example'} · ${row.findings.length} finding${row.findings.length === 1 ? '' : 's'} · Queued for human review</p></div><button class="text-button" type="button" data-ai-history-export="${index}">Download report ${arrow}</button></article>`).join('') : '<p>Queue a review in the desk to keep its report here.</p>';
+    target.innerHTML = rows.length ? rows.map((row, index) => `<article class="ai-history-item"><div><h3>${esc(row.title)}</h3><p>${row.mode === 'live' ? 'Connected AI' : 'Product tour'} · ${row.findings.length} finding${row.findings.length === 1 ? '' : 's'} · Queued for human review</p></div><button class="text-button" type="button" data-ai-history-export="${index}">Download report ${arrow}</button></article>`).join('') : '<p>Queue a review in the desk to keep its report here.</p>';
     $$('[data-ai-history-export]', target).forEach(button => button.addEventListener('click', () => {
       const report = rows[Number(button.dataset.aiHistoryExport)];
       if (report) download(reportText(report), brand.slug + '-analysis-' + report.id + '.md');
@@ -117,9 +117,9 @@ if (brand?.ai) {
       $('[data-note-reference]', root).textContent = source.kind;
       $('[data-source-id]', root).textContent = id;
       $$('[data-finding-index]', root).forEach(card => card.classList.toggle('is-source-active', !!quote && current.findings[Number(card.dataset.findingIndex)].source === id));
-      $('[data-evidence-context]', root).textContent = current.mode === 'live' ? 'Entered evidence · verify every cited observation' : photo ? 'Illustrative image · the prepared observation is transcribed below' : 'Prepared source extract · read in context';
+      $('[data-evidence-context]', root).textContent = current.mode === 'live' ? 'Entered evidence · verify every cited observation' : photo ? 'Inspection illustration · source observation below' : 'Source extract · read in context';
       $('[data-ai-zoom]', root).setAttribute('aria-pressed', 'false');
-      $('[data-ai-zoom]', root).setAttribute('aria-label', 'Zoom into the sample image');
+      $('[data-ai-zoom]', root).setAttribute('aria-label', 'Zoom into the inspection illustration');
       $('[data-sample-visual]', root).classList.remove('is-zoomed');
       updateProgress();
     }
@@ -141,7 +141,7 @@ if (brand?.ai) {
 
     function renderReport() {
       $('[data-ai-title]', root).textContent = current.title;
-      $('[data-ai-mode]', root).textContent = current.mode === 'live' ? 'Connected analysis' : 'Prepared sample';
+      $('[data-ai-mode]', root).textContent = current.mode === 'live' ? 'Connected analysis' : 'Product tour';
       $('[data-review-summary]', root).textContent = current.summary;
       $('[data-review-notes]', root).value = current.notes;
       output.innerHTML = current.findings.map((finding, index) => `<article class="desk-finding" data-finding-index="${index}"><div class="desk-finding-heading"><span class="desk-finding-number">${String(index + 1).padStart(2, '0')}</span><span class="desk-priority ${finding.level === 'Routine' ? 'is-routine' : ''}">${finding.level === 'Routine' ? 'Routine' : 'Needs review'}</span></div><h4>${esc(finding.title)}</h4><p>${esc(finding.action)}</p><button class="desk-citation" type="button" data-ai-citation="${index}" aria-label="Open source ${esc(finding.source)} for finding ${index + 1}"><span>${esc(finding.source)}</span>View the evidence ${arrow}</button><label class="desk-check"><input type="checkbox" data-review-check="${index}" aria-label="Evidence checked for finding ${index + 1}"><span>Open the source to check it</span></label></article>`).join('');
@@ -160,7 +160,7 @@ if (brand?.ai) {
       if (!drafts.has(name)) drafts.set(name, prepare(name));
       current = drafts.get(name); renderReport();
       $('[data-ai-live-run]', root).disabled = false;
-      status.textContent = current.accepted ? 'This prepared review is queued in this browser.' : 'Prepared brief ready. Follow a source to begin your evidence checks.';
+      status.textContent = current.accepted ? 'This review is queued in this browser.' : 'Review brief ready. Follow a source to begin your evidence checks.';
     }
     $$('[data-case-button]', root).forEach(button => button.addEventListener('click', () => chooseCase(button.dataset.caseButton)));
     root.addEventListener('brickwise:open-source', event => { chooseCase('primary'); showSource(String(event.detail)); });
@@ -173,12 +173,12 @@ if (brand?.ai) {
     });
     $('[data-ai-pin]', root).addEventListener('click', () => {
       showSource('S1', current.findings.find(item => item.source === 'S1')?.quote);
-      status.textContent = 'Drain connection selected. Check the prepared observation below the illustrative image.';
+      status.textContent = 'Drain connection selected. Check the source observation below the illustration.';
     });
     $('[data-ai-zoom]', root).addEventListener('click', event => {
       const button = event.currentTarget, zoomed = button.getAttribute('aria-pressed') !== 'true';
       button.setAttribute('aria-pressed', String(zoomed));
-      button.setAttribute('aria-label', zoomed ? 'Reset sample image zoom' : 'Zoom into the sample image');
+      button.setAttribute('aria-label', zoomed ? 'Reset inspection illustration zoom' : 'Zoom into the inspection illustration');
       $('[data-sample-visual]', root).classList.toggle('is-zoomed', zoomed);
     });
     $('[data-review-notes]', root).addEventListener('input', event => {
@@ -194,13 +194,13 @@ if (brand?.ai) {
       status.textContent = 'Brief queued for human review in this browser, with your evidence checks and note.';
     });
     $('[data-ai-download]', root).addEventListener('click', () => {
-      download(reportText(current), brand.slug + '-' + (current.mode === 'live' ? 'ai' : 'sample') + '-review.md');
+      download(reportText(current), brand.slug + '-' + (current.mode === 'live' ? 'ai' : 'inspection') + '-review.md');
       status.textContent = 'Review downloaded with its sources, evidence checks, note, and current status.';
     });
 
     const files = $('[data-ai-files]', root);
     files.addEventListener('change', () => {
-      $('[data-ai-file-count]', root).textContent = files.files.length ? `${files.files.length} test image(s) selected. Sent only when you run the connected service.` : 'Up to 4 test images; 2 MB each.';
+      $('[data-ai-file-count]', root).textContent = files.files.length ? `${files.files.length} inspection image(s) selected. Sent only when you run the connected service.` : 'Up to 4 inspection images; 2 MB each.';
     });
     $('[data-ai-live-run]', root).addEventListener('click', async () => {
       const ownVersion = ++requestVersion;
@@ -209,17 +209,17 @@ if (brand?.ai) {
       try {
         const url = new URL(endpoint);
         if (url.search || url.hash || url.username || url.password || !['https:', 'http:'].includes(url.protocol) || (url.protocol === 'http:' && !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname))) throw new Error('Use an HTTPS service base address without credentials, query parameters, or a fragment. Localhost is supported for development.');
-        if (!text && files.files.length === 0) throw new Error('Add text or a test image for the connected service to analyze.');
-        if (files.files.length > 4) throw new Error('Choose at most four test images.');
+        if (!text && files.files.length === 0) throw new Error('Add text or an inspection image for the connected service to analyze.');
+        if (files.files.length > 4) throw new Error('Choose at most four inspection images.');
         button.disabled = true; status.textContent = 'Checking the configured service…';
         const origin = url.href.replace(/\/$/, '');
         const health = await fetch(origin + '/api/health', {signal:controller.signal}).then(response => response.json());
         if (ownVersion !== requestVersion) return;
         if (!health.configured) throw new Error('Configure the AI provider credentials and deployment on the server before running connected analysis.');
         const inputs = [];
-        if (text) inputs.push({id:'S1', name:'User test material', kind:'text', text});
+        if (text) inputs.push({id:'S1', name:'Inspection material', kind:'text', text});
         for (const [index, file] of [...files.files].entries()) {
-          if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 2 * 1024 * 1024) throw new Error('Use JPEG, PNG or WebP test images up to 2 MB each.');
+          if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 2 * 1024 * 1024) throw new Error('Use JPEG, PNG or WebP inspection images up to 2 MB each.');
           const image = await new Promise((resolve, reject) => {
             const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(new Error('The selected image could not be read.')); reader.readAsDataURL(file);
           });

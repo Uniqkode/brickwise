@@ -1,50 +1,39 @@
-# Owner configuration and launch handover
+# Brickwise business profile
 
-The websites are complete enough to present and explore the product workflows. They do not publish invented registration, team, customer, throughput, uptime or deployment claims. This file lists the genuine values that activate the remaining business integrations.
+Public business details are maintained in `company-profile.json`. Pages read this file through `assets/business-profile.js`; no build step is required.
 
-## Company, domain, inbox and booking
+## Confirmed details
 
-Edit `src/company-profiles.json`. Use `defaults` for a real parent company shared by all ten brands, or `brands.<slug>` for a product-specific override. Rebuild with `npm run build` after changes.
+- Company: Brickwise Ltd.
+- Phone: +2349155500421
+- Office: 31 Admiral Way, Lagos State
+- CEO: Arinze Precious
+- CTO: Kwame Azo
+- Access flow: Request access by phone
+- Pricing: Team US$49/month; Portfolio US$499/month; Enterprise custom. Annual billing is 20% below the equivalent monthly total (US$470.40/year and US$4,790.40/year). Team includes 12,000 images/month and 15 users; Portfolio includes 36,000 images/month and 15 users. Extra usage is quoted individually.
 
-| Setting | What to enter | Publication control |
-| --- | --- | --- |
-| `legalName`, `rcNumber`, `registrationEvidence` | The real operating legal company, genuine RC and an evidence reference | Set `registrationVerified: true` only after verification |
-| `contactEmail` | A real monitored business mailbox | Set `contactVerified: true`; this also publishes configured phone/address |
-| `phone`, `officeAddress` | Actual public business contact details | Require `contactVerified: true` |
-| `domain` | The owned hostname, without `https://` or a path | Set `domainVerified: true` after ownership/configuration; drives canonical and sitemap URLs |
-| `bookingUrl` | The actual HTTPS appointment link, such as your own Calendly event | Set `bookingVerified: true`; the contact page displays a working booking link |
-| `maintainer.bio`, `maintainer.linkedin` | Accurate current responsibilities and the genuine professional profile | No invented experience, employers or qualifications |
-| `team` | Actual names, roles, bios, profile/LinkedIn URLs and optional local portrait filename | Each additional person requires `verified: true` |
-| `brands.<slug>.market` | Optional `initial` and `next` country arrays and market strategy text | Publish real strategy, not a claim of existing customers or offices |
-| `usage` | Actual reporting date, period, evidence source, active organizations, processed count/unit and optional measured median analysis time | Only published when `usage.verified: true` and all reporting fields are valid; otherwise no traction block is rendered |
+## Domain and email
 
-Blank or unverified values stay unpublished. Do not use generic RC numbers, `YOUR-LINK` booking addresses, imaginary employees or a fabricated `hello@` mailbox to make a page appear complete. The brand names and real public maintainer profile are already used.
+The preferred domain is `brickwise.site`, pending registration. Keep `domainReady: false` until it is registered and configured. The published site remains at https://uniqkode.github.io/brickwise/. Do not add a CNAME or change canonical URLs before the domain is ready.
 
-## Enquiry workflow
+The intended email is `hello@brickwise.site`. The owner selected phone-only contact while the mailbox is unavailable. Keep `emailEnabled: false` until the mailbox receives enquiries. In this state the public site shows phone contact, hides email links and uses a call-led access flow. The email enquiry form and its name, work email, phone, company, role, portfolio-size and message fields remain ready for activation.
 
-The new contact form collects a workflow, optional public organization name, preferred date/time and enquiry text. It prepares the message for review. With a verified email, the next action opens the visitor’s email application. Otherwise it opens a GitHub issue composer after an explicit public-data consent step. The visitor makes the final submission; the site never falsely confirms delivery or a calendar booking.
+## Additional fields ready for actual values
 
-The optional local project brief remains available in a separate disclosure. It saves and downloads a planning document; it is not the sales enquiry.
+- `rcNumber`: company registration number, if it should be published.
+- `bookingUrl`: the actual HTTPS appointment link, if used.
+- `workspaceUrl` / `signupUrl`: the real customer access destinations. Until supplied, access requests go to the contact page.
+- `operatingHours`: public office hours.
+- `team[].bio`, `team[].profileUrl`, `team[].portrait`: actual biographies, professional links and portraits. The CTO currently uses initials rather than a fabricated portrait.
+- `usage`: actual organization/building/processed-record counts with a reporting date and source. No usage block is published without reporting information.
+- `testimonials`, `customerLogos`, `inspectionCases`: approved customer material and publicly shareable inspections. Do not publish invented customer endorsements or treat product-tour inspections as customer work.
 
-## Product content and prices
+The homepage’s company/leadership and pricing sections, contact details, request-access page and public business fields are restored. Missing optional values remain hidden.
 
-- `src/growth-data.mjs`: problem, Why now, segments, distribution, expansion strategy, outcome measures, evaluation methods, compute plan and default value-planner assumptions.
-- `src/ai-briefs.mjs`: product descriptions, source-linked prepared cases, pricing/allowances and capacity-planning formulas.
-- `src/product-plans.mjs`: sector Azure service roles, integration and operational evaluation milestones.
-- `src/brands.mjs`: brand identity, logos’ source parameters and operational register fixtures.
+## Running and checking
 
-Value-planner numbers are visitor-editable assumptions. Prepared cases are labelled in the review desk. Keep that context when replacing content. Customer counts, measured savings, model accuracy, real cloud usage and uptime should only be published with evidence. No fake 80–95 credit-review score is supplied.
+- `npm run dev`: local website at http://127.0.0.1:8080/
+- `npm test`: review-state and export checks
+- Push changes to `main` to publish through GitHub Pages.
 
-## Live model and Azure deployment
-
-The Node adapter supports Azure OpenAI v1 Responses with a real resource endpoint, compatible model deployment and server credentials. See `server/README.md` and `.env.azure.example`. No API key belongs in the public website.
-
-Each individual product kit includes its own `service/` adapter and `npm run api`, restricted to that product. It also includes an Azure Static Web Apps workflow example and deployment notes under `deployment/`. Static hosting and the Node model service are separate deployments. Model evaluation, sector ingestion and organizational identity remain the roadmap’s actual integration work.
-
-Azure ML, Document Intelligence, Search, Blob, Service Bus, IoT Hub, Entra, Key Vault, Private Link, Monitor/Application Insights and Defender are mapped to specific production jobs. AKS/GPU hosting is an option where evaluated model and serving needs justify it; managed OpenAI inference is not described as a self-owned GPU cluster. Rill explicitly starts from an evaluated CPU-friendly forecast baseline.
-
-## Independent folders and repositories
-
-`sites/<slug>/dist/` is the static site. `sites/<slug>/service/` and `deployment/` form the optional standalone launch kit. Exported folders in `/workspace/Dev/<slug>/` put the website at the repository root and preserve each existing `.git` history. Do not overwrite unrelated local changes or force-push different remote histories.
-
-GitHub previously rejected creating the ten separate remote repositories. Their local commits and remote targets are prepared. Creation/access must exist before those pushes can succeed; the combined public collection remains deployable in the existing repository.
+The product tour remains clearly identified as a walkthrough. It does not authenticate customer accounts. Node analysis-service configuration remains in `service/` and `deployment/`; provider credentials belong on the server.

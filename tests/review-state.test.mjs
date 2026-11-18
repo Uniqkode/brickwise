@@ -53,7 +53,7 @@ test('downloads retain citations, actual evidence checks, multiline notes, and d
   assert.match(text, /Evidence checked: No\nSource: S2/);
   assert.ok(text.includes(review.notes));
   assert.ok(text.includes(sample.sources[1].excerpt));
-  assert.match(text, /illustrative sample image/);
+  assert.match(text, /product illustrations/);
 });
 
 test('downloads remain compatible with saved reports from the previous desk', () => {

@@ -9,7 +9,7 @@
  const base=document.body.dataset.base||'./';
  const key='b2b:'+config.slug+':';
  const number=value=>Number(value).toLocaleString('en-NG',{maximumFractionDigits:1});
- const currency=value=>'₦'+Math.round(value).toLocaleString('en-NG');
+ const currency=value=>new Intl.NumberFormat('en-NG',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(value);
  let storageAvailable=true;
  const memory=new Map();
  function read(store,item,fallback=null) {
@@ -31,30 +31,18 @@
   const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);
   const link=document.createElement('a');link.href=url;link.download=name;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
  }
- function enterDemo() {
-  write('sessionStorage','session',{demo:true,startedAt:Date.now()});
-  if(!storageAvailable) {
-   // Explicit public demo mode allows read-only navigation when storage is disabled.
-   window.location.assign(base+'dashboard/?demo=1');
-  } else window.location.assign(base+'dashboard/');
+ function enterTour() {
+  write('sessionStorage','session',{tour:true,startedAt:Date.now()});
+  window.location.assign(base+'dashboard/?tour=1');
  }
  const menu=$('.menu-toggle');
  if(menu) menu.addEventListener('click',()=>{
   const expanded=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(expanded));menu.setAttribute('aria-label',expanded?'Close menu':'Open menu');$('#primary-navigation').classList.toggle('open',expanded);
  });
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu');$('#primary-navigation')?.classList.remove('open');}});
- $$('.demo-enter').forEach(button=>button.addEventListener('click',enterDemo));
- $('#login-form')?.addEventListener('submit',event=>{
-  event.preventDefault();
-  const valid=$('#login-email').value.trim().toLowerCase()===`demo@${config.slug}.example`&&$('#login-password').value==='MVPdemo2026!';
-  $('#login-error').hidden=valid;
-  if(valid)enterDemo();else $('#login-error').scrollIntoView({block:'nearest'});
- });
- $('#show-password')?.addEventListener('click',()=>{
-  const input=$('#login-password');const show=input.type==='password';input.type=show?'text':'password';$('#show-password').textContent=show?'Hide':'Show';$('#show-password').setAttribute('aria-label',show?'Hide password':'Show password');$('#show-password').setAttribute('aria-pressed',String(show));
- });
+ $$('.tour-enter').forEach(button=>button.addEventListener('click',enterTour));
  $$('[data-reset]').forEach(button=>button.addEventListener('click',()=>{
-  if(!window.confirm('Restore the sample '+config.name+' workspace? This removes saved records, pilot briefs and the demo session for this brand in this browser.'))return;
+  if(!window.confirm('Clear local '+config.name+' tour records and saved reviews on this device? Download any records you want to keep first.'))return;
   for(const item of ['records','brief','analyses'])remove('localStorage',item);
   remove('sessionStorage','session');
   if(document.body.dataset.page==='dashboard') window.location.assign(base+'login/');
@@ -93,9 +81,9 @@
   });
  }
  if(document.body.dataset.page!=='dashboard')return;
- const publicDemo=new URLSearchParams(window.location.search).get('demo')==='1';
- if(!read('sessionStorage','session')?.demo&&!publicDemo){window.location.replace(base+'login/');return;}
- if(!storageAvailable||publicDemo){const notice=document.createElement('div');notice.className='storage-notice';notice.textContent='Public demonstration mode. If browser storage is disabled, changes will be lost when this page refreshes.';$('.app-main').prepend(notice);}
+ const params=new URLSearchParams(window.location.search);const publicTour=params.get('tour')==='1'||params.get('demo')==='1';
+ if(!read('sessionStorage','session')?.tour&&!read('sessionStorage','session')?.demo&&!publicTour){window.location.replace(base+'login/');return;}
+ if(!storageAvailable){const notice=document.createElement('div');notice.className='storage-notice';notice.textContent='Your browser cannot retain changes. Download the records and reports you want to keep.';$('.app-main').prepend(notice);}
  const fixture=()=>config.records.map(row=>({id:row[0],name:row[1],place:row[2],value:row[3],score:row[4],status:row[5],owner:row[6],note:row[7]}));
  const saved=read('localStorage','records');
  const statuses=['Needs review','Scheduled',config.finalStatus];
@@ -104,7 +92,7 @@
  function persist(){write('localStorage','records',records);render();}
  function statsHTML() {
   const total=records.reduce((sum,r)=>sum+r.value,0),done=records.filter(r=>r.status===config.finalStatus).length,attention=records.filter(r=>r.status==='Needs review').length;
-  return [[number(records.length),config.objects+' in view','All current sample records',''],[number(total),config.totalLabel,'Total across the register',config.unit],[number(attention),'Need review','Open questions for an operator',''],[number(records.length?done/records.length*100:0)+'%',config.metricLabel,`${done} of ${records.length} records complete`,'']].map(([value,label,note,unit])=>`<div class="dashboard-stat"><span>${safe(label)}</span><strong>${safe(value)}${unit?`<small>${safe(unit)}</small>`:''}</strong><p>${safe(note)}</p></div>`).join('');
+  return [[number(records.length),config.objects+' in view','All current records',''],[number(total),config.totalLabel,'Total across the register',config.unit],[number(attention),'Need review','Open questions for an operator',''],[number(records.length?done/records.length*100:0)+'%',config.metricLabel,`${done} of ${records.length} records complete`,'']].map(([value,label,note,unit])=>`<div class="dashboard-stat"><span>${safe(label)}</span><strong>${safe(value)}${unit?`<small>${safe(unit)}</small>`:''}</strong><p>${safe(note)}</p></div>`).join('');
  }
  function filtered() {
   const query=($('#record-search')?.value||'').trim().toLowerCase();const status=$('#status-filter')?.value||'';const sort=$('#record-sort')?.value||'priority';
@@ -118,9 +106,9 @@
  function render() {
   const html=statsHTML();$('#dashboard-stats').innerHTML=html;$('#report-summary').innerHTML=html;
   const count=records.filter(r=>r.status==='Needs review').length;
-  $('#attention-summary').textContent=count?`${count} ${count===1?config.object.toLowerCase():config.objects.toLowerCase()} ${count===1?'needs':'need'} review in this sample workspace. A responsible operator chooses the next step.`:'No records need review. Check scheduled work or add the next sample record.';
+  $('#attention-summary').textContent=count?`${count} ${count===1?config.object.toLowerCase():config.objects.toLowerCase()} ${count===1?'needs':'need'} review in this workspace. A responsible operator chooses the next step.`:'No records need review. Check scheduled work or add the next work order.';
   $('#overview-table').innerHTML=tableHTML([...records].sort((a,b)=>b.score-a.score).slice(0,5));
-  const visible=filtered();$('#record-table').innerHTML=tableHTML(visible);$('#record-count').textContent=`Showing ${visible.length} of ${records.length} sample ${config.objects.toLowerCase()} · Changes saved in this browser`;
+  const visible=filtered();$('#record-table').innerHTML=tableHTML(visible);$('#record-count').textContent=`Showing ${visible.length} of ${records.length} ${config.objects.toLowerCase()} · Changes saved in this browser`;
   $$('[data-record]').forEach(button=>button.addEventListener('click',()=>openRecord(button.dataset.record)));
  }
  function activateTab(tab,updateHash=true) {
@@ -141,8 +129,8 @@
  $('#record-search').addEventListener('input',render);$('#status-filter').addEventListener('change',render);$('#record-sort').addEventListener('change',render);
  function openRecord(id) {
   activeRecord=records.find(r=>r.id===id);if(!activeRecord)return;
-  $('#detail-reference').textContent=activeRecord.id+' / SAMPLE RECORD';$('#detail-name').textContent=activeRecord.name;
-  const details=[[config.placeLabel,activeRecord.place],['Quantity',number(activeRecord.value)+' '+config.unit],['Sample priority',activeRecord.score+' / 100'],['Responsible operator',activeRecord.owner],['Current status',activeRecord.status]];
+  $('#detail-reference').textContent=activeRecord.id+' / WORK ORDER';$('#detail-name').textContent=activeRecord.name;
+  const details=[[config.placeLabel,activeRecord.place],['Quantity',number(activeRecord.value)+' '+config.unit],['Priority',activeRecord.score+' / 100'],['Responsible operator',activeRecord.owner],['Current status',activeRecord.status]];
   $('#detail-meta').innerHTML=details.map(([label,value])=>`<div><dt>${safe(label)}</dt><dd>${safe(value)}</dd></div>`).join('');
   $('#detail-note').value=activeRecord.note;
   $('#complete-record').disabled=activeRecord.status===config.finalStatus;
@@ -151,7 +139,7 @@
  }
  $('#save-note').addEventListener('click',()=>{
   if(!activeRecord)return;
-  const value=$('#detail-note').value.trim();if(!value){notify('Add a sample observation before saving.');$('#detail-note').focus();return;}
+  const value=$('#detail-note').value.trim();if(!value){notify('Add an observation before saving.');$('#detail-note').focus();return;}
   activeRecord.note=value.slice(0,1500);persist();notify('Note saved in this browser.');
  });
  $('#complete-record').addEventListener('click',()=>{
@@ -163,21 +151,21 @@
   event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
   const values=Object.fromEntries(new FormData(form));const value=Number(values.value);
   if(!Number.isFinite(value)||value<=0||value>1000000)return;
-  const fields=['name','place','owner','note'];if(fields.some(field=>!String(values[field]).trim())){notify('Complete each field with sample information.');return;}
+  const fields=['name','place','owner','note'];if(fields.some(field=>!String(values[field]).trim())){notify('Complete each required field.');return;}
   const prefix=config.records[0][0].split('-')[0];let counter=Math.max(...records.map(r=>Number(r.id.split('-').at(-1))||0),0)+1;
   records.unshift({id:prefix+'-'+counter,name:values.name.trim().slice(0,120),place:values.place.trim().slice(0,120),value,score:50,status:'Scheduled',owner:values.owner.trim().slice(0,80),note:values.note.trim().slice(0,1500)});
-  $('#status-filter').value='';$('#record-search').value='';persist();$('#add-dialog').close();form.reset();activateTab('records');notify('New sample '+config.object.toLowerCase()+' created.');
+  $('#status-filter').value='';$('#record-search').value='';persist();$('#add-dialog').close();form.reset();activateTab('records');notify('New '+config.object.toLowerCase()+' created.');
  });
  function exportCSV(all=false) {
   const rows=all?records:filtered();if(!rows.length){notify('No matching records to export.');return;}
   function cell(value){let text=String(value??'');if(/^[\s]*[=+\-@\t\r]/.test(text))text="'"+text;return '"'+text.replace(/"/g,'""')+'"';}
-  const headers=['Reference',config.object,config.placeLabel,`Quantity (${config.unit})`,'Sample priority','Status','Owner',config.noteLabel];
+  const headers=['Reference',config.object,config.placeLabel,`Quantity (${config.unit})`,'Priority','Status','Owner',config.noteLabel];
   const lines=[headers,...rows.map(r=>[r.id,r.name,r.place,r.value,r.score,r.status,r.owner,r.note])].map(row=>row.map(cell).join(','));
-  download('\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8',config.slug+'-sample-register.csv');notify(rows.length+' sample records exported.');
+  download('\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8',config.slug+'-work-orders.csv');notify(rows.length+' records exported.');
  }
  $$('[data-export]').forEach(button=>button.addEventListener('click',()=>exportCSV(false)));
  $$('[data-export-all]').forEach(button=>button.addEventListener('click',()=>exportCSV(true)));
- $('#logout').addEventListener('click',()=>{remove('sessionStorage','session');window.location.assign(base+'login/');});
+ $('#logout').addEventListener('click',()=>{remove('sessionStorage','session');window.location.assign(base);});
  for(const dialog of $$('dialog'))dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}});
  render();activateTab(window.location.hash.slice(1)||'overview',false);
 })();

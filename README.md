@@ -60,15 +60,17 @@ The model reviews fresh inspection imagery across a property portfolio and compa
 
 These assumptions do not establish actual customers, Azure consumption or model accuracy.
 
-## Company details and contact
+## Company and contact
 
-The team page identifies the public repository maintainer, Precious Arinze / Uniqkode, with a short implementation bio. The enquiry form prepares a message for review and final submission on GitHub, or through a verified email when configured. A separate local project brief can be saved and downloaded.
+Brickwise Ltd. is led by Arinze Precious (CEO) and Kwame Azo (CTO). The public phone number is +2349155500421 and the office address is 31 Admiral Way, Lagos State.
 
-Legal names and RC numbers are managed in `src/company-profiles.json` in the complete repository. Registration is unpublished unless the record has `registrationVerified: true`, a genuine legal name and RC number, and an evidence reference. Do not use placeholder registrations in applications.
+`company-profile.json` holds the company/contact fields, leadership, existing plan prices, optional reporting metrics and access links. `OWNER_SETUP.md` records confirmed values and fields still available for owner-supplied details.
 
-## Current scope
+Contact is phone-only while the preferred domain `brickwise.site` and intended `hello@brickwise.site` mailbox are pending. The site stays on its working GitHub Pages address. The contact page includes an email enquiry form that activates only when a working mailbox is enabled.
 
-Prepared operational cases use sample data. Browser-local edits and reports are not shared between users. Connected analysis sends entered material only when explicitly run. Shared accounts, sector ingestion, OCR, trained vision/forecast models, retention and production monitoring remain work described by the roadmap.
+## Product walkthrough
+
+The interactive tour introduces inspection review, work-order handling, evidence checks and report exports. Tour records are walkthrough material, and changes are stored on the visitor’s device. Customer workspace access is requested through Brickwise rather than a public password.
 
 ## Interactive product tools
 

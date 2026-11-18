@@ -1,0 +1,47 @@
+.bw-business-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+.bw-business-grid>div>p{font-size:14px;line-height:1.9;color:var(--muted);max-width:460px;margin-top:23px}
+.bw-business-facts{margin:0;border-top:1px solid var(--line)}
+.bw-business-facts>div{padding:17px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:125px 1fr;gap:20px;font-size:12px}
+.bw-business-facts dt{color:var(--muted)}.bw-business-facts dd{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.bw-team-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+.bw-person-card{display:flex;align-items:start;gap:23px;padding-block:25px;border-top:1px solid var(--line)}
+.bw-person-card img{width:85px;height:100px;object-fit:cover;border-radius:7px;flex-shrink:0}
+.bw-person-initials{width:85px;height:100px;flex-shrink:0;display:grid;place-items:center;border-radius:7px;background:#e7eedf;border:1px solid #d7e1cc;font-size:29px;font-weight:500;letter-spacing:-.04em;color:#607e4c}
+.bw-person-card .bw-eyebrow{font-size:8px;margin-bottom:9px}.bw-person-card h3{font-size:23px}
+.bw-person-card p{font-size:12px;line-height:1.9;color:var(--muted);margin:12px 0}
+.bw-company-section,.bw-pricing-section{border-top:1px solid var(--line)}
+.bw-profile-pricing{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.bw-profile-plan{padding:29px;border:1px solid var(--line);border-radius:10px;background:#fff;display:flex;flex-direction:column;align-items:start}
+.bw-profile-plan:nth-child(2){background:#edf3e6;border-color:#b7caa5}
+.bw-profile-plan h3{font-size:20px;margin-bottom:20px}.bw-profile-plan .bw-plan-amount{font-size:36px;line-height:1.2;letter-spacing:-.05em;margin-bottom:10px}
+.bw-profile-plan .bw-plan-period{font-size:10px;color:var(--muted);min-height:35px}
+.bw-profile-plan ul{list-style:none;margin:17px 0 25px;padding:18px 0 0;border-top:1px solid var(--line);width:100%;font-size:11px;line-height:1.8;flex:1}
+.bw-profile-plan li{padding-left:16px;position:relative;margin-bottom:10px}.bw-profile-plan li::before{content:'✓';position:absolute;left:0;color:#6e8d55}
+.bw-profile-plan .button{font-size:11px;padding:13px 17px;min-height:44px;gap:18px}
+.bw-profile-pricing-options{display:flex;justify-content:end;margin-bottom:25px}.bw-profile-pricing-options[hidden]{display:none}
+.bw-profile-pricing-options button{font-size:11px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:10px 16px}
+.bw-profile-pricing-options button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.bw-usage-list{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding-block:30px;border-block:1px solid var(--line)}
+.bw-usage-list strong{display:block;font-size:45px;font-weight:500;letter-spacing:-.055em}.bw-usage-list span{display:block;font-size:12px;color:var(--muted)}
+.bw-profile-date{font-size:10px;color:var(--muted);margin-top:15px}
+.bw-contact-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:85px;padding-bottom:85px}
+.bw-contact-details h2{font-size:39px;margin-bottom:22px}.bw-contact-details>p{font-size:13px;color:var(--muted);line-height:1.9;max-width:330px}
+.bw-contact-details>a{display:flex;align-items:center;gap:10px;font-size:14px;margin:14px 0;overflow-wrap:anywhere}
+.bw-contact-details .bw-business-facts{margin-block:29px}
+.bw-enquiry-form{padding:32px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.bw-enquiry-form h2{font-size:29px;margin-bottom:25px}.bw-enquiry-form label{display:block;font-size:11px;font-weight:500;margin-bottom:17px}
+.bw-enquiry-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 17px}
+.brickwise-redesign .bw-enquiry-form input,.brickwise-redesign .bw-enquiry-form select,.brickwise-redesign .bw-enquiry-form textarea{display:block;width:100%;font-size:12px;color:var(--ink);border:1px solid #d7e1cf;border-radius:5px;min-height:44px;padding:10px 12px;background:#fbfcf8;margin-top:7px}
+.bw-enquiry-form textarea{resize:vertical;min-height:110px}.bw-enquiry-form .checkbox-label{display:flex;gap:9px;align-items:start;font-size:10px;color:var(--muted);line-height:1.8}
+.brickwise-redesign .bw-enquiry-form .checkbox-label input{width:15px;min-height:15px;height:15px;flex-shrink:0;padding:0;margin:3px 0 0;accent-color:#557a42}
+.bw-enquiry-form .button{font-size:12px;min-height:47px}.bw-contact-preview{border-top:1px solid var(--line);padding-top:23px;margin-top:25px}
+.bw-contact-preview pre{font:11px/1.8 var(--body);white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted);margin-bottom:20px}
+.bw-access-panel{padding:40px;border:1px solid var(--line);background:#fff;border-radius:12px;max-width:520px}
+.bw-access-panel h2{font-size:39px;margin-bottom:19px}.bw-access-panel p{font-size:14px;line-height:1.9;color:var(--muted)}
+.bw-access-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:27px}
+.bw-phone-enquiry{max-width:none;padding:40px}.bw-phone-enquiry h2{font-size:36px}.bw-phone-enquiry ul{padding:20px 0 0;list-style:none;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:2.2;margin-top:26px}
+.brickwise-redesign [hidden]{display:none!important}
+.bw-footer-contact{display:flex;gap:17px;flex-wrap:wrap;margin-top:15px;font-size:11px;color:var(--muted)}
+.bw-footer-contact a[hidden],.bw-contact-details>a[hidden],.bw-business-facts>div[hidden],.bw-company-section[hidden],.bw-team-section[hidden],.bw-usage-section[hidden]{display:none}
+@media(max-width:900px){.bw-business-grid{gap:40px}.bw-profile-plan{padding:22px}.bw-profile-plan .bw-plan-amount{font-size:30px}.bw-contact-layout{gap:40px}.bw-enquiry-form{padding:25px}.bw-contact-details h2{font-size:34px}}
+@media(max-width:680px){.bw-business-grid,.bw-contact-layout{grid-template-columns:1fr;gap:35px}.bw-contact-layout{padding-bottom:55px}.bw-business-facts>div{grid-template-columns:105px 1fr;gap:16px;font-size:11px}.bw-profile-pricing{grid-template-columns:1fr;gap:17px}.bw-profile-plan{padding:26px}.bw-profile-plan .bw-plan-period{min-height:0}.bw-usage-list{gap:20px}.bw-usage-list strong{font-size:33px}.bw-usage-list span{font-size:10px}.bw-enquiry-form{padding:23px 20px}.bw-enquiry-fields{grid-template-columns:1fr}.bw-access-panel{padding:27px 23px}.bw-access-panel h2{font-size:34px}.bw-access-panel p{font-size:13px}.bw-person-card{gap:20px}.bw-person-card img{width:70px;height:85px}}
