@@ -96,5 +96,6 @@
   "availableFeatures": [],
   "inspectionCases": [],
   "emailEnabled": false,
-  "domainReady": false
+  "domainReady": false,
+  "contactFormEndpoint": "https://formspree.io/f/mwlobrkb"
 }

@@ -9,14 +9,18 @@ Public business details are maintained in `company-profile.json`. Pages read thi
 - Office: 31 Admiral Way, Lagos State
 - CEO: Arinze Precious
 - CTO: Kwame Azo
-- Access flow: Request access by phone
+- Access flow: Sign in opens the sign-in screen with a one-click demo workspace entry. Sign up and Request access open Contact us; the phone number remains available alongside the Formspree contact form.
 - Pricing: Team US$49/month; Portfolio US$499/month; Enterprise custom. Annual billing is 20% below the equivalent monthly total (US$470.40/year and US$4,790.40/year). Team includes 12,000 images/month and 15 users; Portfolio includes 36,000 images/month and 15 users. Extra usage is quoted individually.
 
 ## Domain and email
 
 The preferred domain is `brickwise.site`, pending registration. Keep `domainReady: false` until it is registered and configured. The published site remains at https://uniqkode.github.io/brickwise/. Do not add a CNAME or change canonical URLs before the domain is ready.
 
-The intended email is `hello@brickwise.site`. The owner selected phone-only contact while the mailbox is unavailable. Keep `emailEnabled: false` until the mailbox receives enquiries. In this state the public site shows phone contact, hides email links and uses a call-led access flow. The email enquiry form and its name, work email, phone, company, role, portfolio-size and message fields remain ready for activation.
+The intended email is `hello@brickwise.site`. The owner selected phone-only contact while the mailbox is unavailable. Keep `emailEnabled: false` until the mailbox receives enquiries. In this state the public site shows phone contact and hides email links. The contact form uses Formspree independently of this mailbox.
+
+## Contact form
+
+The form is connected to the owner-supplied endpoint `https://formspree.io/f/mwlobrkb`. `contactFormEndpoint` and the static `action` on `contact/index.html` use the same URL. The submit button also works without JavaScript. The form posts directly to Formspree using native HTML validation; no enquiry is saved to browser storage. If the configured endpoint is removed or invalid, JavaScript disables submission and displays the phone contact instead. Update both the JSON and the static form action together when changing providers or form IDs.
 
 ## Additional fields ready for actual values
 

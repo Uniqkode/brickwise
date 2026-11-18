@@ -15,7 +15,7 @@ const appendText = (parent, tag, value, className = '') => {
 };
 
 try {
-  const response = await fetch(base + 'company-profile.json?v=7.2');
+  const response = await fetch(base + 'company-profile.json?v=7.5');
   if (!response.ok) throw new Error('Business profile unavailable.');
   const profile = await response.json();
   const email = profile.emailEnabled === true ? emailAddress(profile.contactEmail) : null;
@@ -101,16 +101,14 @@ try {
   });
   const form = $('#contact-enquiry-form');
   if (form) {
-    form.hidden = !mailto;
-    const button = $('[data-contact-prepare]', form); button.disabled = !mailto;
+    const url = https(profile.contactFormEndpoint);
+    const endpoint = /^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(url || '') ? url : null;
+    const button = $('[data-contact-submit]', form);
+    button.disabled = !endpoint;
+    $('[data-contact-status]', form).hidden = !!endpoint;
+    if (endpoint) form.action = endpoint;
     form.addEventListener('submit', event => {
-      event.preventDefault(); if (!mailto || !form.reportValidity()) return;
-      const data = Object.fromEntries(new FormData(form));
-      const body = `BRICKWISE ENQUIRY\n\nName: ${data.name}\nWork email: ${data.email}\nPhone: ${data.phone || 'Not supplied'}\nOrganization: ${data.organization}\nRole: ${data.role || 'Not supplied'}\nPortfolio size: ${data.portfolio || 'Not supplied'}\nInterest: ${data.interest}\n\n${data.message}`;
-      $('[data-contact-copy]', form).textContent = body;
-      $('[data-contact-send]', form).href = mailto + '?subject=' + encodeURIComponent('Brickwise — ' + data.interest) + '&body=' + encodeURIComponent(body);
-      $('[data-contact-preview]', form).hidden = false;
+      if (!endpoint) event.preventDefault();
     });
   }
-  $$('[data-phone-enquiry]').forEach(panel => { panel.hidden = !!mailto || !hasPhone; });
 } catch (error) { console.error('Brickwise business profile:', error.message); }

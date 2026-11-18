@@ -1,4 +1,4 @@
-import {createReview, reviewProgress, reportToMarkdown} from './review-state.js?v=7.2';
+import {createReview, reviewProgress, reportToMarkdown} from './review-state.js?v=7.5';
 
 /* Prepared reviews stay local. Only the connected-service action sends input. */
 const brand = window.BRAND;
