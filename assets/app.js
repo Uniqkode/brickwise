@@ -41,6 +41,18 @@
  });
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu');$('#primary-navigation')?.classList.remove('open');}});
  $$('.tour-enter').forEach(button=>button.addEventListener('click',enterTour));
+ const login=$('#login-form');
+ if(login){
+  const email=$('#login-email'),password=$('#login-password'),error=$('#login-error');
+  login.addEventListener('submit',event=>{
+   event.preventDefault();error.hidden=true;
+   if(!login.reportValidity())return;
+   if(email.value.trim().toLowerCase()!==email.defaultValue||password.value!==password.defaultValue){error.hidden=false;password.focus();return;}
+   enterTour();
+  });
+  login.addEventListener('input',()=>{error.hidden=true;});
+  $('#login-submit').disabled=false;
+ }
  $$('[data-reset]').forEach(button=>button.addEventListener('click',()=>{
   if(!window.confirm('Clear local '+config.name+' tour records and saved reviews on this device? Download any records you want to keep first.'))return;
   for(const item of ['records','brief','analyses'])remove('localStorage',item);

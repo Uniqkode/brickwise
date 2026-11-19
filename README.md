@@ -25,7 +25,7 @@ The standalone site contains 24 routed pages (including home/technology aliases)
 
 ## Try the workspace
 
-Run `npm run dev` (Node and Python 3), then open http://127.0.0.1:8080/. Alternatively, serve this folder with any static HTTP server. No dependency installation or build step is needed. Open Sign in and choose Continue to demo workspace. Sign up and Request access open the contact form. Demo entry does not collect an account password.
+Run `npm run dev` (Node and Python 3), then open http://127.0.0.1:8080/. Alternatively, serve this folder with any static HTTP server. No dependency installation or build step is needed. Open Sign in and use the prefilled public demo email and password. One Sign in action opens the demo workspace; Sign up opens the contact form. The credentials are checked locally and are not sent or stored.
 
 Choose a prepared case in the review desk, open its source tabs or image annotation, check each finding, add a reviewer note, and queue or download the brief. Case switching preserves checks and notes during the session. Queued reports remain in browser storage and appear in the workspace’s Reports view. Operational records support creation, notes, status changes, search, filters, sorting and CSV export. Prepared runs make no model request.
 

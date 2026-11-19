@@ -9,7 +9,7 @@ Public business details are maintained in `company-profile.json`. Pages read thi
 - Office: 31 Admiral Way, Lagos State
 - CEO: Arinze Precious
 - CTO: Kwame Azo
-- Access flow: Sign in opens the sign-in screen with a one-click demo workspace entry. Sign up and Request access open Contact us; the phone number remains available alongside the Formspree contact form.
+- Access flow: Sign in opens the email/password screen with a prefilled public demo account. Sign up and Request access open Contact us; the phone number remains available alongside the Formspree contact form.
 - Pricing: Team US$49/month; Portfolio US$499/month; Enterprise custom. Annual billing is 20% below the equivalent monthly total (US$470.40/year and US$4,790.40/year). Team includes 12,000 images/month and 15 users; Portfolio includes 36,000 images/month and 15 users. Extra usage is quoted individually.
 
 ## Domain and email
@@ -42,10 +42,14 @@ The homepage’s company/leadership and pricing sections, contact details, reque
 
 The product tour remains clearly identified as a walkthrough. It does not authenticate customer accounts. Node analysis-service configuration remains in `service/` and `deployment/`; provider credentials belong on the server.
 
+## Demo sign-in
+
+The sign-in screen checks its prefilled public demo credentials locally and opens the demo workspace. Credentials are not sent to Formspree, an AI service or an identity provider, and are not retained in the session. Organizational authentication remains part of the Entra ID build plan. The card has one Sign in button and one Sign up link to Contact us.
+
 ## Website content and workload architecture
 
 The owner supplied Master prompt.docx as a content brief and asked to preserve the current UI. Its example customer counts, throughput, uptime, prices, founder biographies and appointment URLs are not confirmed Brickwise facts. The owner requested Azure services suited to the idea as the architecture to build toward.
 
-The homepage links to the AI workload; Technology covers image/document inputs, structured findings, batch boundaries, confirmed plan allowances, Azure service roles and source documentation. Product capabilities, security controls and the build roadmap use existing site components. Stylesheets, scripts, artwork and approved business/pricing/contact values are unchanged.
+The homepage links to the AI workload; Technology covers image/document inputs, structured findings, batch boundaries, confirmed plan allowances, Azure service roles and source documentation. Product capabilities, security controls and the build roadmap use existing site components. The workload content update reused existing styles, scripts and artwork. The later sign-in update adds local demo credential checks; approved business, pricing and contact values remain unchanged.
 
 Keep the wider Azure stack identified as the build architecture until the deployed services are verified. Publish usage only after supplying a measured count, reporting date and source in `company-profile.json`. Current plan allowances describe included images, not completed processing volume.
